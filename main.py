@@ -1,4 +1,6 @@
 from fastapi import FastAPI, Request, Header, HTTPException
+from fastapi.staticfiles import StaticFiles
+
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
@@ -8,6 +10,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+# staticディレクトリを /static でアクセス可能にする
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 # 環境変数からトークン・シークレットを読み込む
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")

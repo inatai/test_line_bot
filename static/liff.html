@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LIFF Test</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>方向ボタン</h2>
+  <button onclick="sendMessage('右')">右</button>
+  <button onclick="sendMessage('左')">左</button>
+
+  <script>
+    async function main() {
+      await liff.init({ liffId: "YOUR_LIFF_ID" });
+    }
+
+    async function sendMessage(direction) {
+      if (!liff.isInClient()) {
+        alert('LINEアプリで開いてください');
+        return;
+      }
+
+      await liff.sendMessages([
+        {
+          type: 'text',
+          text: direction
+        }
+      ]);
+      liff.closeWindow();
+    }
+
+    main();
+  </script>
+</body>
+</html>
